@@ -15,6 +15,7 @@ return
 ^!#e::Edit
 
 ; #Include "experiments.ahk"
+
 ; ^+k::
 ; {
 ;     if (isItURL(A_Clipboard))

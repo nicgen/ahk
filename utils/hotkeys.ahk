@@ -74,7 +74,7 @@ return
   else if WinActive("ahk_exe Taskmgr.exe") ; NOK, doesn't work 19-06-2023 17:40
   {
     ; Send "{LAlt down}{F4 down}"
-    ; Sleep 666
+    ; Sleep(666)
     ; Send "{LAlt up}{F4 up}"
     ; ---
     ; Send "!{F4}"
@@ -99,42 +99,42 @@ return
   ; more EGGS!!! (note, not needed since the addition of eggman in moonglow)
   !SPACE:: ; alt+space
 {
-    Loop 100 ; does x iterations
-    {
-      Send "{Enter}"
-      Sleep 50
-      Send "{LButton}"
-      Sleep 50
-      Send "{SPACE}"
-      Sleep 50
-      Send "{RButton}"
-      Sleep 50
-      Send "{MButton}"
-      Sleep 50
-    }
-  return
+  Loop 100 ; does x iterations
+  {
+    Send "{Enter}"
+    Sleep(100)
+    Send "{LButton}"
+    Sleep(100)
+    Send "{SPACE}"
+    Sleep(100)
+    Send "{RButton}"
+    Sleep(100)
+    Send "{MButton}"
+    Sleep(100)
+  }
+return
 }
 
   !r:: ; macro to restart a run
   ; [Steamlists](https://steamlists.com/vampire-survivors-how-to-quick-restart-using-autohotkey-macro/)
 {
-    Send "{Escape}{Left 4}{Space}{Left}{Space 2}" ; exit session
-    Sleep 1000 ; home screen animation
-    Send "{Space 6}"
-    Sleep 500 ; arcanas animation
-    Send "{Space}"
-    Sleep 100
-    Send "{Escape}{Right 3}{Down 1}{Space}"
-    Sleep 500
-    Send "{Space}"
-    Loop 17 ; does x iterations
-      {
-        Send "{Space}"
-        Sleep 50
-      }
-    Send "{Space}" ; Big Coin
-    SoundBeep(200, 1000)
-  return
+  Send "{Escape}{Left 4}{Space}{Left}{Space 2}" ; exit session
+  Sleep(1000) ; home screen animation
+  Send "{Space 6}"
+  Sleep(500) ; arcanas animation
+  Send "{Space}"
+  Sleep(100)
+  Send "{Escape}{Right 3}{Down 1}{Space}"
+  Sleep(500)
+  Send "{Space}"
+  Loop 17 ; does x iterations
+    {
+      Send "{Space}"
+      Sleep(100)
+    }
+  Send "{Space}" ; Big Coin
+  SoundBeep(200, 1000)
+return
 }
 
   ; unlock Smith IV [Vampire-survivors.fandom](https://vampire-survivors.fandom.com/wiki/Smith_IV)
@@ -150,10 +150,15 @@ return
 ; -------------------------------------------------------------------
 #HotIf WinActive("ahk_exe Diablo IV.exe", )
   ; relaunch Joplin (theme design)
-  !SPACE:: ;alt+space this is a test
+  !SPACE:: ;alt+space
 {
-    MsgBox("Diablo IV")
-  return
+  MsgBox("Diablo IV")
+  ; TODO: macro for a perfect Shout timer
+  ; 1 > 2 > 3
+  ; 1 - rallying cry
+  ; 2 - war cry
+  ; 3 - challenging shout
+return
 }
 #HotIf ; turn off context sensitivity (\Diablo IV)
 
@@ -163,10 +168,36 @@ return
   ; relaunch Joplin (theme design)
   !SPACE:: ;alt+space
 {
-    global PATH_appdata
-    Send "^q" ; quit
-    Run(PATH_appdata "\Programs\Joplin\Joplin.exe")
-    SoundPlay(ASSETS_sound "\fx\ui_message_toast.wav")
-  return
+  global PATH_appdata
+  Send "^q" ; quit
+  Run(PATH_appdata "\Programs\Joplin\Joplin.exe")
+  SoundPlay(ASSETS_sound "\fx\ui_message_toast.wav")
+return
 }
 #HotIf ; turn off context sensitivity (\Joplin)
+
+; Firefox
+; -------------------------------------------------------------------
+#HotIf WinActive("ahk_class MozillaWindowClass", )
+  ; relaunch Joplin (theme design)
+  !SPACE:: ;alt+space
+{
+  buffer := A_Clipboard
+  Sleep(100)
+  Send "!d"
+  Sleep(25)
+  Send "^c"
+  Sleep(100)
+  url := A_Clipboard
+  ; MsgBox("Your are in Firefox,`nBrowsing:" . url)
+  if (InStr(url, "https://www.amazon." , 0))
+  {
+    browseCamelCamel(url)
+  } else {
+    MsgBox("Your are in FIREFOX,`nBrowsing:" . url)
+  }
+  A_Clipboard := buffer
+  Sleep(100)
+return
+}
+#HotIf ; turn off context sensitivity (\Firefox)

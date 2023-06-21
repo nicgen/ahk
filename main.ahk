@@ -40,5 +40,5 @@ SetWorkingDir(A_ScriptDir)          ; ensures a consistent starting directory.
 #Include "utils\startup.ahk"
 #Include "utils\hotkeys.ahk"
 #Include "utils\hotstring.ahk"
-; #Include "utils\AutoCorrect_2.0.ahk"
+; #Include "utils\AutoCorrect.ahk"
 #Include "utils\tests.ahk" ; for debug only

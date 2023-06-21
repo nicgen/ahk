@@ -48,6 +48,46 @@ isItURL(str)
     }
 }
 
+; use the clipboard to paste the result instead of sending-it
+pasteClipBoard(var)
+{
+    buffer := A_Clipboard
+    Sleep(100)
+    A_Clipboard := var
+    Sleep(100)
+    ; if WinActive("ahk_exe WindowsTerminal.exe") ; ctrl+shift+v windows terminal
+    ; {
+    ;     MsgBox( var )
+    ;     Send "^+v"
+    ; } else {
+    ;     Send "^v"
+    ; }
+    Send "^v"
+    Sleep(100)
+    A_Clipboard := buffer
+    Sleep(100)
+    ; buffer := unset
+return
+}
+
+; browser
+browseCamelCamel(url)
+{
+    regex := "https:\/\/www.amazon\.fr\/[\w\-%\/]+\/([A-Z0-9]{10})\/?"
+    match := RegExMatch(url, regex , &result)
+    ; MsgBox("Your are in AMAZON,`nYour product code:" . result[1])
+    ; url := "https://fr.camelcamelcamel.com/product/" . result[1]
+    url := "https://charts.camelcamelcamel.com/fr/" . result[1] . "/amazon.png?force=1&zero=0&w=500&h=500&desired=false&legend=1&ilt=1&tp=all"
+    A_Clipboard := url
+    Sleep(100)
+    Send "^n" ; open a new window
+    Sleep(400)
+    Send "^v" ; paste the url
+    Sleep(100)
+    Send "{enter}"
+return
+}
+
 ; return a quote of infinite wisdom to start the day
 writeQuote()
 {
@@ -94,6 +134,18 @@ writeQuote()
     "`"No one in the brief history of computing has ever written a piece of perfect software. It's unlikely that you'll be the first.`"`nAndy Hunt",
     "`"Give someone a program, you frustrate them for a day; teach them how to program, you frustrate them for a lifetime`"`nDavid Leinweber",
     ]
+; TODO: add:
+; Dont't worry if it doesn't work right. If everything did, you'd be out of a job. Mosher’s Law of Software Engineering
+; Without requirements or design, programming is the art of adding bugs to an empty text file. Louis Srygley
+; Walking on water and developing software from a specification are easy if both are frozen. Edward V. Berard
+; One man’s crappy software is another man’s full-time job. (Jessica Gaston)
+; The best thing about a boolean is even if you are wrong, you are only off by a bit. (Anonymous)
+; Without requirements or design, programming is the art of adding bugs to an empty text file. (Louis Srygley)
+; Developer is an organism that turns coffee into code.
+; The purpose of software engineering is to control complexity, not to create it.
+; It’s not a bug – it’s an undocumented feature. (Anonymous)
+; A good programmer is someone who always looks both ways before crossing a one-way street. (Doug Linder)
+; Deleted code is debugged code. (Jeff Sickel)
     ; TrayTip(quotes[Random(1,41)], "Quote of the Day")
     ; msgbox(quotes[Random(1,41)],"Quotes", 1)
     return quotes[Random(1,41)]

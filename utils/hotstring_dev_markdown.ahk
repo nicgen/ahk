@@ -13,22 +13,24 @@
     else        
         template := "
         (
-        ``````input`n
-        code`n
+        ``````input
+        code
         ``````
         )"
 
         template := StrReplace(template, "input" , userInput.Value)
         template := StrReplace(template, "code" , code)
         Sleep(100)
-    Send("{Raw}" template)
+    ; Send("{Raw}" template)
+    pasteClipBoard(template)
 return
 }
 
 ; send table of content block
 ::;t::
 {
-    Send("{Raw}" "`$`{toc`}")
+    template := "`$`{toc`}"
+    pasteClipBoard(template)
 return
 }
 ; {
@@ -64,15 +66,15 @@ return
                 domain := domain[1]
             } else {
                 MsgBox( A_Clipboard . "is not a valid URL" )
-                Exit
+                ; Exit
             }
     }
     ; }
-
     template := "[domain](url)"
     template := StrReplace(template, "domain" , domain)
     template := StrReplace(template, "url" , A_Clipboard)
-    Send("{Raw}" template)
+    ; Send("{Raw}" template)
+    pasteClipBoard(template)
 return
 }
 
@@ -81,11 +83,12 @@ return
 {
     if (RegExMatch(A_Clipboard, REGEX_domain , &domain))
     {
-        template := "[source](" . StrLower(A_Clipboard) . ")"
-        Send("{Raw}" template)
+        template := "([source](" . StrLower(A_Clipboard) . "))"
+        pasteClipBoard(template)
+        ; Send("{Raw}" template)
     } else {
         MsgBox( A_Clipboard . "is not a valid URL" )
-        Exit
+        ; Exit
     }
 return
 }

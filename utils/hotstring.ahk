@@ -15,41 +15,41 @@
 ; COMMON
 ; -------------------------------------------------------------------
 ; date
-; [AHK date format - docs](https://www.autohotkey.com/docs/commands/FormatTime.htm)
+; [AHK date format - docs](https://www.autohotkey.com/docs/v2/lib/FormatTime.htm)
 
 :*c:;dmy::
 {
     CurrentDateTime := FormatTime(, "dd-MM-yy" )
-    SendInput(CurrentDateTime)
-    return
+    pasteClipBoard(CurrentDateTime)
+return
 }
 
 :*c:;ymd::
 {
-CurrentDateTime := FormatTime(, "yy-MM-dd" )
-SendInput(CurrentDateTime)
+    CurrentDateTime := FormatTime(, "yy-MM-dd" )
+    pasteClipBoard(CurrentDateTime)
 return
 }
 
 ::;d::
 {
-CurrentDateTime := FormatTime(, "dd-MM-yyyy HH:mm" )
-SendInput(CurrentDateTime)
+    CurrentDateTime := FormatTime(, "dd-MM-yyyy HH:mm" )
+    pasteClipBoard(CurrentDateTime)
 return
 }
 
 ::;df::
 {
-CurrentDateTime := FormatTime(, "dddd dd MMMM yyyy - HH:mm" )
-SendInput(CurrentDateTime)
+    CurrentDateTime := FormatTime(, "dddd dd MMMM yyyy - HH:mm" )
+    pasteClipBoard(CurrentDateTime)
 return
 }
 
 ::;ds::
 {
-CurrentDateTime := FormatTime(, "yyyyMMddHHmmss" )
-; SendInput(CurrentDateTime)
-SendInput(Format("{1:x}", CurrentDateTime)) ; epoch time in Hexadecimal
+    CurrentDateTime := FormatTime(, "yyyyMMddHHmmss" )
+    ; SendInput(Format("{1:x}", CurrentDateTime)) ; epoch time in Hexadecimal
+    pasteClipBoard(Format("{1:x}", CurrentDateTime))
 return
 }
 
@@ -59,7 +59,8 @@ return
 ::;id::
 {
     global ID_name
-    Send("{Raw}" ID_name)
+    ; Send("{Raw}" ID_name)
+	pasteClipBoard(ID_name)
 return
 }
 
@@ -67,7 +68,8 @@ return
 ::;phone::
 {
     global ID_line
-    Send("{Raw}" ID_line)
+    ; Send("{Raw}" ID_line)
+	pasteClipBoard(ID_line)
 return
 }
 
@@ -75,7 +77,8 @@ return
 ::;mob::
 {
     global ID_mobile
-    Send("{Raw}" ID_mobile)
+    ; Send("{Raw}" ID_mobile)
+	pasteClipBoard(ID_mobile)
 return
 }
 
@@ -83,7 +86,8 @@ return
 ::;home::
 {
     global ID_address
-    Send("{Raw}" ID_address)
+    ; Send("{Raw}" ID_address)
+	pasteClipBoard(ID_address)
 return
 }
 
@@ -95,7 +99,8 @@ return
 ::@::
 {
     global MAIL_public
-    Send("{Raw}" MAIL_public)
+    ; Send(MAIL_public)
+    pasteClipBoard(MAIL_public)
 return
 }
 
@@ -104,7 +109,8 @@ return
 ::@p::
 {
     global MAIL_private
-    Send("{Raw}" MAIL_private)
+    ; Send("{Raw}" MAIL_private)
+	pasteClipBoard(MAIL_private)
 return
 }
 
@@ -112,7 +118,8 @@ return
 ::@a::
 {
     global MAIL_anon
-    Send("{Raw}" MAIL_anon)
+    ; Send("{Raw}" MAIL_anon)
+	pasteClipBoard(MAIL_anon)
 return
 }
 
@@ -120,7 +127,8 @@ return
 ::@w::
 {
     global MAIL_work
-    Send("{Raw}" MAIL_work)
+    ; Send("{Raw}" MAIL_work)
+	pasteClipBoard(MAIL_work)
 return
 
 ; Gmail
@@ -128,7 +136,8 @@ return
 ::@g::
 {
     global MAIL_gmail
-    Send("{Raw}" MAIL_gmail)
+    ; Send("{Raw}" MAIL_gmail)
+	pasteClipBoard(MAIL_gmail)
 return
 
 ; Hotmail
@@ -136,7 +145,8 @@ return
 ::@h::
 {
     global MAIL_hotmail
-    Send("{Raw}" MAIL_hotmail)
+    ; Send("{Raw}" MAIL_hotmail)
+	pasteClipBoard(MAIL_hotmail)
 return
 }
 
@@ -146,8 +156,10 @@ return
 ; download video best quality [source](https://askubuntu.com/a/1097056)
 ::;ytdlv::
 {
-    Send("{Raw}youtube-dl.exe --output `"D:\data\private\downloads\`%(title)s-`%(id)s.`%(ext)s`" -cvw -f best --add-metadata --xattrs " A_Clipboard)
-    ; SendRaw, Keys
+    template := "youtube-dl.exe --output `"" . PATH_downloads . "`%(title)s-`%(id)s.`%(ext)s`" -cvw -f best --add-metadata --xattrs " . A_Clipboard
+    ; Send("{Raw}youtube-dl.exe --output `"D:\data\private\downloads\`%(title)s-`%(id)s.`%(ext)s`" -cvw -f best --add-metadata --xattrs " A_Clipboard)
+    MsgBox "You entered '" . template
+    pasteClipBoard(template)
 return
 }
 
@@ -181,7 +193,8 @@ return
     dom := domain[1]
     dom := StrTitle(dom)
     Sleep(100)
-    Send("{raw}" dom)
+    ; Send("{raw}" dom)
+	pasteClipBoard(dom)
 return
 }
 
